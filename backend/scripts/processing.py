@@ -19,7 +19,6 @@ from models import (
 )
 from config import OPENAI_API_KEY, OPENAI_MODEL
 
-# Initialize OpenAI client
 if not OPENAI_API_KEY:
     raise ValueError("Please set the OPENAI_API_KEY environment variable.")
 client = OpenAI(api_key=OPENAI_API_KEY)
@@ -61,17 +60,15 @@ def process_section(
     response = client.beta.chat.completions.parse(
         model=OPENAI_MODEL,
         messages=messages,
-        response_format=EntitiesResponseModel,  # Pass EntitiesResponseModel class
+        response_format=EntitiesResponseModel,  
     )
 
-    # Acces the parsed lists of entities and relationships
-    entities_data = response.choices[0].message.parsed.entities # type hint
+    entities_data = response.choices[0].message.parsed.entities 
     relationships_data = response.choices[0].message.parsed.relationships
 
     final_entities: list[FinalEntity] = []
     final_relationships: list[FinalRelationship] = []
 
-    # Process entities
     for entity in entities_data:
         metadata = entity.metadata.dict()
         entity_type = metadata["type"]
@@ -110,7 +107,6 @@ def process_section(
             # Unknown entity type; skip
             continue
 
-    # Process relationships
     for relationship in relationships_data:
         metadata = relationship.metadata.model_dump()
         metadata_obj = RelationshipMetadata(**metadata)
@@ -126,6 +122,6 @@ def process_section(
     return final_entities, final_relationships
 
 def generate_relationship_embedding(relationship: FinalRelationship) -> None:
-    # Embed only the 'relationship_type' string
+ 
     embedding_vector = create_embedding(text=relationship.metadata.relationship_type)
     relationship.embedding = embedding_vector
