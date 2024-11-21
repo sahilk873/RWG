@@ -27,6 +27,7 @@ async def lifespan(app: FastAPI):
     app.state.index = index
     yield
     print("Shutting down")
+    
 app = FastAPI(lifespan=lifespan)
 
 app.add_middleware(
@@ -59,7 +60,7 @@ async def ask_question(request: Request, question_request: QuestionRequest):
 
     index = app.state.index
     results = query_database(
-        k_num=num_matches, relationship_embedding=relationship_embedding, index=index
+        index, k_num=num_matches, relationship_embedding=relationship_embedding, index=index
     )
 
     entity_dict: dict[int, EntityMetadata] = {}

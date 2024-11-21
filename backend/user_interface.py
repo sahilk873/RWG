@@ -33,7 +33,7 @@ def main() -> None:
 
         relationship_embedding: list[float] = create_embedding(relationship_type)
 
-        results: dict[str, any] = query_database(3, relationship_embedding)
+        results: dict[str, any] = query_database(index, 3, relationship_embedding)
 
         entity_dict: dict[int, EntityMetadata] = {}
 
