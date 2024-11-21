@@ -11,10 +11,8 @@ from utils import write_json_list_start, write_json_list_end, write_json_entry, 
 def main():
     sections = read_and_split_text(file_path=INPUT_FILE_PATH)
 
-    # Initialize entity ID to name mapping
     entity_id_to_name: dict[str, str] = {}
 
-    # Open output files
     with open(ENTITIES_OUTPUT_FILE, 'w', encoding='utf-8') as entities_outfile, \
          open(RELATIONSHIPS_OUTPUT_FILE, 'w', encoding='utf-8') as relationships_outfile:
 
@@ -28,7 +26,6 @@ def main():
             print(f"Processing section {i+1}/{len(sections)}...")
             final_entities, final_relationships = process_section(section_text=section, entity_id_to_name=entity_id_to_name)
 
-            # Process entities
             if final_entities:
                 for entity in final_entities:
                     entity_dict = entity.dict()
@@ -37,7 +34,6 @@ def main():
             else:
                 print(f"No entities extracted from section {i+1}.")
 
-            # Process relationships
             if final_relationships:
                 for relationship in final_relationships:
                     generate_relationship_embedding(relationship=relationship)
