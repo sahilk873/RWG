@@ -13,27 +13,27 @@ def write_json_entry(file, data, is_first_entry):
     json.dump(data, file, indent=4, ensure_ascii=False)
 
 def assign_unique_ids(input_path: str, output_path: str):
-    # Load relationships from JSON file
+    
     with open(input_path, 'r') as file:
         relationships = json.load(file)
 
-    # Track used IDs and ensure uniqueness
+    
     used_ids = set()
     for i, relationship in enumerate(relationships):
         original_id = relationship.get('id', f'relationship_{i}')
         unique_id = original_id
         counter = 1
 
-        # Adjust the ID if it's already been used
+       
         while unique_id in used_ids:
             unique_id = f"{original_id}_{counter}"
             counter += 1
 
-        # Set the unique ID and mark it as used
+        
         relationship['id'] = unique_id
         used_ids.add(unique_id)
 
-    # Save updated relationships to a new JSON file
+   
     with open(output_path, 'w') as file:
         json.dump(relationships, file, indent=2)
 
@@ -58,7 +58,7 @@ def load_entities(file_path):
 def find_entity_by_id(entity_id, entities_data):
     """Searches for an entity by its ID in the list of entities data."""
     for entity in entities_data:
-        if entity['id'].lower() == entity_id.lower():  # Match case-insensitively
+        if entity['id'].lower() == entity_id.lower(): 
             return entity
     return None
 
@@ -69,7 +69,6 @@ def build_relationship_strings(entity_dict, entities_data):
     for _ , entity in entity_dict.items():
         entity1_id, entity2_id, relationship = entity.entity1_id, entity.entity2_id, entity.relationship
 
-        # Fetch entity info from the JSON data
         entity1_info = find_entity_by_id(entity_id=entity1_id, entities_data=entities_data)
         entity2_info = find_entity_by_id(entity_id=entity2_id, entities_data=entities_data)
 
