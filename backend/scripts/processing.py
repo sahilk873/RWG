@@ -27,17 +27,6 @@ def process_section(
     section_text: str, entity_id_to_name: dict[str, str]
 ) -> Tuple[list[FinalEntity], list[FinalRelationship]]:
     assert isinstance(section_text, str), "---"
-    """
-    Processes a section of text to extract entities and relationships.
-
-    Args:
-        section_text (str): The text section to process.
-        entity_id_to_name (Dict[str, str]): A mapping from entity IDs to their names.
-
-    Returns:
-        Tuple[List[FinalEntity], List[FinalRelationship]]: Lists of extracted entities and relationships.
-    """
-    # Define the JSON schema for structured outputs
     
     messages = [
         {
