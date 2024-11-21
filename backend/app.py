@@ -1,10 +1,11 @@
 # builtin
 from contextlib import asynccontextmanager
-from fastapi.middleware.cors import CORSMiddleware
 
 # external
 from fastapi import FastAPI, HTTPException, Request
 from pydantic import BaseModel
+from fastapi.middleware.cors import CORSMiddleware
+from pinecone import Pinecone
 
 # internal
 from utils import produce_context
@@ -16,7 +17,7 @@ from openai_methods import (
 )
 from config import PINECONE_API_KEY
 from models import EntityMetadata
-from pinecone import Pinecone
+
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
