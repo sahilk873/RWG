@@ -1,13 +1,6 @@
 #bultin
 from pinecone import Pinecone, ServerlessSpec
 
-#internal
-from config import PINECONE_API_KEY
-
-pc = Pinecone(api_key=PINECONE_API_KEY)
-index = pc.Index('relationships-index') # ur creating multiple clients
-
-
 def query_database(index, k_num:int,  relationship_embedding: list[float]) -> dict[str, any]:
     assert isinstance(k_num, int)
     assert isinstance(relationship_embedding, list)
