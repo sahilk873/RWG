@@ -6,7 +6,7 @@ def query_database(index, k_num:int,  relationship_embedding: list[float]) -> di
     assert isinstance(relationship_embedding, list)
     results = index.query(
         vector=relationship_embedding,
-        top_k=  k_num,
+        top_k=k_num,
         include_values=False,
         include_metadata=True)
     return results
