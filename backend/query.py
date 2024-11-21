@@ -1,4 +1,4 @@
-#bultin
+#external
 from pinecone import Pinecone, ServerlessSpec
 
 def query_database(index, k_num:int,  relationship_embedding: list[float]) -> dict[str, any]:
